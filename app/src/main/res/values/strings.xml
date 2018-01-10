@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">QuizApplication</string>
+    <string name="question1">What is the seventh planet from the sun?</string>
+    <string name="answer1a">Earth</string>
+    <string name="answer1b">Uranus</string>
+    <string name="answer1c">Pluto</string>
+    <string name="answer1d">Jupiter</string>
+    <string name="solution">Solution</string>
+
+    <string-array name="questions">
+        <item>@string/question1</item>
+    </string-array>
+    <string-array name="answersA">
+        <item>@string/answer1a</item>
+    </string-array>
+    <string-array name="answersB">
+        <item>@string/answer1b</item>
+    </string-array>
+    <string-array name="answersC">
+        <item>@string/answer1c</item>
+    </string-array>
+    <string-array name="answersD">
+        <item>@string/answer1d</item>
+    </string-array>
+    <string-array name="questionType">
+        <item>singleChoice</item>
+    </string-array>
+</resources>
