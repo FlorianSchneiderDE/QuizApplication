@@ -6,27 +6,35 @@
     <string name="answer1c">Pluto</string>
     <string name="answer1d">Jupiter</string>
     <string name="solution">Lösung</string>
+    <string name="next">Weiter</string>
 
     <string-array name="questions">
         <item>@string/question1</item>
+        <item>Welche der folgenden Antworten sind Tiere (multiple choice)?</item>
     </string-array>
     <string-array name="answersA">
         <item>@string/answer1a</item>
+        <item>Stein</item>
     </string-array>
     <string-array name="answersB">
         <item>@string/answer1b</item>
+        <item>Baum</item>
     </string-array>
     <string-array name="answersC">
         <item>@string/answer1c</item>
+        <item>Katze</item>
     </string-array>
     <string-array name="answersD">
         <item>@string/answer1d</item>
+        <item>Pferd</item>
     </string-array>
     <string-array name="correctAnswers">
         <item>0100</item>
+        <item>0011</item>
     </string-array>
     <string-array name="questionType">
         <item>singleChoice</item>
+        <item>multipleChoice</item>
     </string-array>
 
 </resources>
