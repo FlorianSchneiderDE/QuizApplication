@@ -22,7 +22,11 @@
     <string-array name="answersD">
         <item>@string/answer1d</item>
     </string-array>
+    <string-array name="correctAnswers">
+        <item>0100</item>
+    </string-array>
     <string-array name="questionType">
         <item>singleChoice</item>
     </string-array>
+
 </resources>

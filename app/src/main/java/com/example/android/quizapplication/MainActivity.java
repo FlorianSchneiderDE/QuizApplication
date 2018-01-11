@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     int currentQuestion = 0;
     Resources res;
     String[] questionType;
+    String[] correctAnswers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         res = getResources();
         questionType = res.getStringArray(R.array.questionType);
+        correctAnswers = res.getStringArray(R.array.correctAnswers);
     }
 
     public void changeStatusOfButton(View v) {
@@ -67,7 +69,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void displaySolution(View v) {
-
+        int[] answerNumber = new int[4];
+        if (android.text.TextUtils.isDigitsOnly(correctAnswers[currentQuestion]))
+        {
+            for(int i=0;i<4;i++)
+            {
+                answerNumber[i] = Integer.parseInt(correctAnswers[currentQuestion].substring(i,i+1));
+            }
+        }
+        for(int i=0;i<4;i++){
+            if (buttonStatus[i].equals("active")) {
+                if (answerNumber[i]==1)
+                    buttonStatus[i] = "correct";
+                else
+                    buttonStatus[i] = "wrong";
+            }
+        }
         updateUI(v);
 
     }
