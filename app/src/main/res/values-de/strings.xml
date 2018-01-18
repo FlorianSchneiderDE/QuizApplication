@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">QuizApplication</string>
     <string name="question1">Wie heißt der siebte Planet des Sonnensystems?</string>
     <string name="answer1a">Erde</string>
@@ -37,5 +37,8 @@
         <item>multipleChoice</item>
     </string-array>
     <string name="editText">Antwort</string>
+    <string name="summary">Übersicht</string>
+    <string name="editTextAlt">Benutze die Buttons!</string>
+    <string name="toastMessage">Herzlichen Glückwunsch!\n Du hast <b><xliff:g id="count" example="0">%d</xliff:g></b> richtige Antworten gegeben!</string>
 
 </resources>

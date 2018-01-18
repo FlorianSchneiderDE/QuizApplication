@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -68,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
                     buttonStatus[i] = "none";
                 }
             }
-
         }
         updateUI();
     }
@@ -82,9 +80,8 @@ public class MainActivity extends AppCompatActivity {
 
             if (questionType[currentQuestion].equals("freeAnswer"))
             {
-                // Enable editText
+                // Update editText
                 EditText answerField = findViewById(R.id.editText);
-                answerField.setInputType(1);
                 answerField.setHint(R.string.editText);
 
                 // Disable buttons
@@ -93,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
                     answerButton.setClickable(false);
                     answerButton.setText("");
                 }
-
             }
             else {
                 // Disable editText
@@ -110,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 for (int i = 0; i < 4; i++) {
                     Button answerButton = findViewById(idList[i]);
                     answerButton.setText(currentAnswers[i]);
-                    answerButton.setClickable(true);
+                    //answerButton.setClickable(true);
                 }
             }
             TextView questionTextView = findViewById(R.id.questionText);
@@ -136,83 +132,83 @@ public class MainActivity extends AppCompatActivity {
 
             //Define solution button string
             Button solutionButton = findViewById(R.id.buttonSolution); //cast View to Button
-            if (solutionState.equals("next")) {
-                solutionButton.setText(R.string.next);
-            } else {
-                solutionButton.setText(R.string.solution);
+            switch (solutionState) {
+                case "next":
+                    solutionButton.setText(R.string.next);
+                    EditText answerField = findViewById(R.id.editText);
+                    answerField.setInputType(0);
+                case "solution":
+                    solutionButton.setText(R.string.solution);
+                case "finish":
+                    solutionButton.setText(R.string.summary);
             }
-        }
-        else
-        {
-            //currentQuestion = 0;
-            //updateUI();
         }
     }
 
     public void displaySolution(View v) {
-        //check if currentQuestion < numberQuestions => show questions
+        //check if currentQuestion < numberQuestions-1 => show questions
         if (currentQuestion<numberOfQuestions) {
-            if (solutionState.equals("solution")) {
-                int[] answerNumber = new int[4];
-                //Single choice or multiple choice question
-                if (android.text.TextUtils.isDigitsOnly(correctAnswers[currentQuestion])) {
-                    for (int i = 0; i < 4; i++) {
-                        answerNumber[i] = Integer.parseInt(correctAnswers[currentQuestion].substring(i, i + 1));
-                    }
-                    for (int i = 0; i < 4; i++) {
-                        if (buttonStatus[i].equals("active")) {
-                            if (answerNumber[i] == 1) {
-                                buttonStatus[i] = "correct";
-                                correctAnswersGiven += 1;
-                            }
-                            else
-                                buttonStatus[i] = "wrong";
+            switch (solutionState) {
+                case "solution": {
+                    int[] answerNumber = new int[4];
+                    //Single choice or multiple choice question
+                    if (android.text.TextUtils.isDigitsOnly(correctAnswers[currentQuestion])) {
+                        for (int i = 0; i < 4; i++) {
+                            answerNumber[i] = Integer.parseInt(correctAnswers[currentQuestion].substring(i, i + 1));
                         }
-                        (findViewById(idList[i])).setClickable(false);
+                        for (int i = 0; i < 4; i++) {
+                            if (buttonStatus[i].equals("active")) {
+                                if (answerNumber[i] == 1) {
+                                    buttonStatus[i] = "correct";
+                                    correctAnswersGiven += 1;
+                                } else
+                                    buttonStatus[i] = "wrong";
+                            }
+                            (findViewById(idList[i])).setClickable(false);
+                            EditText answerField = findViewById(R.id.editText);
+                            answerField.setInputType(0);
+                        }
                     }
-                }
-                //Free answer mode
-                else {
-                    EditText answerField = findViewById(R.id.editText);
-                    String answerText = answerField.getText().toString();
-                    if (answerText.equalsIgnoreCase(correctAnswers[currentQuestion]))
-                    {
-                        answerField.setTextColor(Color.GREEN);
-                        correctAnswersGiven += 1;
+                    //Free answer mode
+                    else {
+                        EditText answerField = findViewById(R.id.editText);
+                        String answerText = answerField.getText().toString();
+                        if (answerText.equalsIgnoreCase(correctAnswers[currentQuestion])) {
+                            answerField.setTextColor(Color.GREEN);
+                            correctAnswersGiven += 1;
+                        } else {
+                            answerField.setTextColor(Color.RED);
+                        }
+                        answerField.setInputType(0);
                     }
+                    if (currentQuestion < numberOfQuestions - 1)
+                        solutionState = "next";
                     else
-                    {
-                        answerField.setTextColor(Color.RED);
+                        solutionState = "finish";
+                }
+                case "next": {
+                    //Move to next question
+                    currentQuestion += 1;
+                    for (int i = 0; i < 4; i++) {
+                        buttonStatus[i] = "none"; //reset all buttons
+                        (findViewById(idList[i])).setClickable(true);
                     }
-
+                    //Delete current text in die editText and deactivate it
+                    EditText answerField = findViewById(R.id.editText);
+                    answerField.setText("");
+                    answerField.setInputType(1);
+                    solutionState = "solution";
+                    answerField.requestFocus();
                 }
-                solutionState = "next";
-            } else {
-                //Move to next question
-                currentQuestion +=1;
-                for(int i=0;i<4;i++) {
-                    buttonStatus[i] = "none"; //reset all buttons
-                    (findViewById(idList[i])).setClickable(true);
+                case "finish": {
+                    // Show toast with the summary
+                    Context context = getApplicationContext();
+                    int duration = Toast.LENGTH_LONG;
+                    Toast toast = Toast.makeText(context, getString(R.string.toastMessage, correctAnswersGiven), duration);
+                    toast.show();
                 }
-                //Delete current text in die editText
-                EditText answerField = findViewById(R.id.editText);
-                answerField.setText("");
-                solutionState = "solution";
-
-
             }
         }
-        //=> show evaluation
-        else
-        {
-
-            // Show toast
-            Context context = getApplicationContext();
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(context,getString(R.string.toastMessage,correctAnswersGiven),duration);
-            toast.show();
-        }
         updateUI();
-
     }
 }

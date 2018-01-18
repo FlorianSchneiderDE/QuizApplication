@@ -6,10 +6,11 @@
     <string name="answer1c">Pluto</string>
     <string name="answer1d">Jupiter</string>
     <string name="solution">Solution</string>
+    <string name="summary">Summary</string>
     <string name="next">Next</string>
     <string name="editText">Answer here!</string>
     <string name="editTextAlt">Click the button(s)</string>
-    <string name="toastMessage">Congratulations! You gave <xliff:g id="count" example="0">%d</xliff:g></string>
+    <string name="toastMessage">Congratulations!  You gave <b><xliff:g id="count" example="0">%d</xliff:g></b> correct answers!</string>
 
     <string-array name="questions">
         <item>@string/question1</item>
