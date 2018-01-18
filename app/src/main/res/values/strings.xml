@@ -10,7 +10,7 @@
     <string name="next">Next</string>
     <string name="editText">Answer here!</string>
     <string name="editTextAlt">Click the button(s)</string>
-    <string name="toastMessage">Congratulations!  You gave <b><xliff:g id="count" example="0">%d</xliff:g></b> correct answers!</string>
+    <string name="toastMessage">Congratulations!\n You gave <b><xliff:g id="count" example="0">%d</xliff:g></b> correct answers!</string>
 
     <string-array name="questions">
         <item>@string/question1</item>

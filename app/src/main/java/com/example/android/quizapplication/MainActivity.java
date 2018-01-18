@@ -137,10 +137,13 @@ public class MainActivity extends AppCompatActivity {
                     solutionButton.setText(R.string.next);
                     EditText answerField = findViewById(R.id.editText);
                     answerField.setInputType(0);
+                    break;
                 case "solution":
                     solutionButton.setText(R.string.solution);
+                    break;
                 case "finish":
                     solutionButton.setText(R.string.summary);
+                    break;
             }
         }
     }
@@ -185,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
                         solutionState = "next";
                     else
                         solutionState = "finish";
+                    break;
                 }
                 case "next": {
                     //Move to next question
@@ -199,6 +203,7 @@ public class MainActivity extends AppCompatActivity {
                     answerField.setInputType(1);
                     solutionState = "solution";
                     answerField.requestFocus();
+                    break;
                 }
                 case "finish": {
                     // Show toast with the summary
@@ -206,6 +211,7 @@ public class MainActivity extends AppCompatActivity {
                     int duration = Toast.LENGTH_LONG;
                     Toast toast = Toast.makeText(context, getString(R.string.toastMessage, correctAnswersGiven), duration);
                     toast.show();
+                    break;
                 }
             }
         }
