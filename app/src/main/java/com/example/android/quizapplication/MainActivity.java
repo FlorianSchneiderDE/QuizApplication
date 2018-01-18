@@ -1,14 +1,18 @@
 package com.example.android.quizapplication;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     int[] idList = new int[4];
     int currentQuestion = 0;
     int numberOfQuestions;
+    int correctAnswersGiven = 0;
     Resources res;
     String[] questionType;
     String[] correctAnswers;
@@ -47,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         solutionState = "solution";
         numberOfQuestions = correctAnswers.length;
         images = res.obtainTypedArray(R.array.pictures);
+
+        updateUI();
     }
 
     public void changeStatusOfButton(View v) {
@@ -63,23 +70,48 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-        updateUI(v);
+        updateUI();
     }
 
-    public void updateUI(View v) {
+    public void updateUI() {
         //check if currentQuestion > numberQuestions
         if (currentQuestion<numberOfQuestions) {
-            ((ImageView) findViewById(R.id.topImage)).setImageDrawable(images.getDrawable(currentQuestion));
-            // Update question and button resources
-            String[] currentAnswers = new String[4];
-            currentAnswers[0] = answersA[currentQuestion];
-            currentAnswers[1] = answersB[currentQuestion];
-            currentAnswers[2] = answersC[currentQuestion];
-            currentAnswers[3] = answersD[currentQuestion];
 
-            for (int i = 0; i < 4; i++) {
-                Button answerButton = findViewById(idList[i]);
-                answerButton.setText(currentAnswers[i]);
+            // Update Image resource
+            ((ImageView) findViewById(R.id.topImage)).setImageDrawable(images.getDrawable(currentQuestion));
+
+            if (questionType[currentQuestion].equals("freeAnswer"))
+            {
+                // Enable editText
+                EditText answerField = findViewById(R.id.editText);
+                answerField.setInputType(1);
+                answerField.setHint(R.string.editText);
+
+                // Disable buttons
+                for (int i = 0; i < 4; i++) {
+                    Button answerButton = findViewById(idList[i]);
+                    answerButton.setClickable(false);
+                    answerButton.setText("");
+                }
+
+            }
+            else {
+                // Disable editText
+                EditText answerField = findViewById(R.id.editText);
+                answerField.setInputType(0);
+                answerField.setHint(R.string.editTextAlt);
+                // Update question and button resources
+                String[] currentAnswers = new String[4];
+                currentAnswers[0] = answersA[currentQuestion];
+                currentAnswers[1] = answersB[currentQuestion];
+                currentAnswers[2] = answersC[currentQuestion];
+                currentAnswers[3] = answersD[currentQuestion];
+
+                for (int i = 0; i < 4; i++) {
+                    Button answerButton = findViewById(idList[i]);
+                    answerButton.setText(currentAnswers[i]);
+                    answerButton.setClickable(true);
+                }
             }
             TextView questionTextView = findViewById(R.id.questionText);
             questionTextView.setText(questions[currentQuestion]);
@@ -110,6 +142,11 @@ public class MainActivity extends AppCompatActivity {
                 solutionButton.setText(R.string.solution);
             }
         }
+        else
+        {
+            //currentQuestion = 0;
+            //updateUI();
+        }
     }
 
     public void displaySolution(View v) {
@@ -124,8 +161,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                     for (int i = 0; i < 4; i++) {
                         if (buttonStatus[i].equals("active")) {
-                            if (answerNumber[i] == 1)
+                            if (answerNumber[i] == 1) {
                                 buttonStatus[i] = "correct";
+                                correctAnswersGiven += 1;
+                            }
                             else
                                 buttonStatus[i] = "wrong";
                         }
@@ -134,6 +173,17 @@ public class MainActivity extends AppCompatActivity {
                 }
                 //Free answer mode
                 else {
+                    EditText answerField = findViewById(R.id.editText);
+                    String answerText = answerField.getText().toString();
+                    if (answerText.equalsIgnoreCase(correctAnswers[currentQuestion]))
+                    {
+                        answerField.setTextColor(Color.GREEN);
+                        correctAnswersGiven += 1;
+                    }
+                    else
+                    {
+                        answerField.setTextColor(Color.RED);
+                    }
 
                 }
                 solutionState = "next";
@@ -144,15 +194,25 @@ public class MainActivity extends AppCompatActivity {
                     buttonStatus[i] = "none"; //reset all buttons
                     (findViewById(idList[i])).setClickable(true);
                 }
+                //Delete current text in die editText
+                EditText answerField = findViewById(R.id.editText);
+                answerField.setText("");
                 solutionState = "solution";
+
+
             }
         }
         //=> show evaluation
         else
         {
 
+            // Show toast
+            Context context = getApplicationContext();
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context,getString(R.string.toastMessage,correctAnswersGiven),duration);
+            toast.show();
         }
-        updateUI(v);
+        updateUI();
 
     }
 }

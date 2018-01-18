@@ -36,5 +36,6 @@
         <item>singleChoice</item>
         <item>multipleChoice</item>
     </string-array>
+    <string name="editText">Antwort</string>
 
 </resources>

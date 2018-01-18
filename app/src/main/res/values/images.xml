@@ -3,6 +3,7 @@
     <array name="pictures">
         <item>@drawable/solarsystem</item>
         <item>@drawable/animals</item>
+        <item>@drawable/camel</item>
     </array>
 
 </resources>
