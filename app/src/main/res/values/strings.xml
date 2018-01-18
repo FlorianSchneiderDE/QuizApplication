@@ -16,35 +16,42 @@
         <item>@string/question1</item>
         <item>Which of the following are animals (multiple choice)?</item>
         <item>Which is the animal referred as the ship of the desert? </item>
+        <item>Which one is the plural of woman?</item>
     </string-array>
     <string-array name="answersA">
         <item>@string/answer1a</item>
         <item>Stone</item>
         <item> </item>
+        <item>womans</item>
     </string-array>
     <string-array name="answersB">
         <item>@string/answer1b</item>
         <item>Tree</item>
         <item> </item>
+        <item>men</item>
     </string-array>
     <string-array name="answersC">
         <item>@string/answer1c</item>
         <item>Cat</item>
         <item> </item>
+        <item>womens</item>
     </string-array>
     <string-array name="answersD">
         <item>@string/answer1d</item>
         <item>Horse</item>
         <item> </item>
+        <item>women</item>
     </string-array>
     <string-array name="correctAnswers">
         <item>0100</item>
         <item>0011</item>
         <item>Camel</item>
+        <item>0001</item>
     </string-array>
     <string-array name="questionType">
         <item>singleChoice</item>
         <item>multipleChoice</item>
         <item>freeAnswer</item>
+        <item>singleChoice</item>
     </string-array>
 </resources>

@@ -11,30 +11,44 @@
     <string-array name="questions">
         <item>@string/question1</item>
         <item>Welche der folgenden Antworten sind Tiere (multiple choice)?</item>
+        <item>Welches Tier wird auch Wüstenschiff genannt?</item>
+        <item>Was ist der Plural des Wortes Frau?</item>
     </string-array>
     <string-array name="answersA">
         <item>@string/answer1a</item>
         <item>Stein</item>
+        <item> </item>
+        <item>Frau</item>
     </string-array>
     <string-array name="answersB">
         <item>@string/answer1b</item>
         <item>Baum</item>
+        <item> </item>
+        <item>Frauän</item>
     </string-array>
     <string-array name="answersC">
         <item>@string/answer1c</item>
         <item>Katze</item>
+        <item> </item>
+        <item>Mann</item>
     </string-array>
     <string-array name="answersD">
         <item>@string/answer1d</item>
         <item>Pferd</item>
+        <item> </item>
+        <item>Frauen</item>
     </string-array>
     <string-array name="correctAnswers">
         <item>0100</item>
         <item>0011</item>
+        <item>Camel</item>
+        <item>0001</item>
     </string-array>
     <string-array name="questionType">
         <item>singleChoice</item>
         <item>multipleChoice</item>
+        <item>freeAnswer</item>
+        <item>singleChoice</item>
     </string-array>
     <string name="editText">Antwort</string>
     <string name="summary">Übersicht</string>

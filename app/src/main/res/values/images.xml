@@ -4,6 +4,7 @@
         <item>@drawable/solarsystem</item>
         <item>@drawable/animals</item>
         <item>@drawable/camel</item>
+        <item>@drawable/grammar</item>
     </array>
 
 </resources>
